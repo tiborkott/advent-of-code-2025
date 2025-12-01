@@ -8,6 +8,7 @@ import kotlin.io.path.readText
  */
 fun readInput(name: String) = Path("src/$name.txt").readText().trim().lines()
 
+
 /**
  * Converts string to md5 hash.
  */
@@ -19,3 +20,12 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  * The cleaner shorthand for printing output.
  */
 fun Any?.println() = println(this)
+
+
+fun <T : Number> measure(part: () -> T): Pair<T, Long> {
+    val start = System.nanoTime()
+    val result = part()
+    val duration = (System.nanoTime() - start) / 1_000_000 // Convert to milliseconds
+
+    return Pair(result, duration)
+}

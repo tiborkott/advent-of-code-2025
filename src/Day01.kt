@@ -1,21 +1,28 @@
+
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
+
+    fun part1(): Int {
+        /**
+         *
+         */
+        return 0
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun part2(): Int {
+        /**
+         *
+         */
+        return 0
     }
 
-    // Test if implementation meets criteria from the description, like:
-    check(part1(listOf("test_input")) == 1)
 
-    // Or read a large test input from the `src/Day01_test.txt` file:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
+    val (result1, duration1)  = measure { part1() }
+    val (result2, duration2)  = measure { part2() }
 
-    // Read the input from the `src/Day01.txt` file.
-    val input = readInput("Day01")
-    part1(input).println()
-    part2(input).println()
+    println("+-------------------------------------------")
+    println("| Day 1: Secret Entrance")
+    println("+-------------------------------------------")
+    println("| Part 1 solution = $result1 (took $duration1 ms)")
+    println("| Part 2 solution = $result2 (took $duration2 ms)")
+    println("+-------------------------------------------")
 }
