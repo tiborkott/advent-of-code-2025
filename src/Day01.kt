@@ -1,50 +1,45 @@
 data class Dial(
-    var pointing: Int = 50,
+    var pointer: Int = 50,
     var password: Int = 0,
-    var password_0x434C49434B: Int = 0,
+    var securePassword: Int = 0,
     var rotations: MutableList<Int> = mutableListOf()
 ){
     init {
-        readInput("Day01").forEach{ line ->
-            if(line.startsWith('R')){
-                rotations.add(line.removePrefix("R").toInt())
-            }else{
-                rotations.add(line.removePrefix("L").toInt() * -1)
-            }
+        readInput("Day01").forEach { line ->
+            val value = line.drop(1).toInt()
+            rotations.add(
+                when (line.first()) {
+                    'R' -> value
+                    else -> -value
+                }
+            )
         }
     }
 }
 
 fun Dial.rotate(){
-    if((pointing + rotations[0])%100 == 0){
+    if((pointer + rotations[0])%100 == 0){
         password++
     }
-    pointing = (pointing + rotations.removeFirst()) % 100
+    pointer = (pointer + rotations.removeFirst()) % 100
 }
 
 fun Dial.rotateEach(){
     if(rotations[0]>0){
         for (position in 1..rotations[0] step 1) {
-            if((pointing + position)%100 == 0){
-                password_0x434C49434B++
+            if((pointer + position)%100 == 0){
+                securePassword++
             }
         }
     }else{
         for (position in 1..(rotations[0]*-1) step 1) {
-            if((pointing - position)%100 == 0){
-                password_0x434C49434B++
+            if((pointer - position)%100 == 0){
+                securePassword++
             }
         }
     }
-    pointing = (pointing + rotations.removeFirst()) % 100
+    pointer = (pointer + rotations.removeFirst()) % 100
 
-}
-fun Dial.analyze(): Int{
-    return password
-}
-
-fun Dial.analyze_0x434C49434B(): Int{
-    return password_0x434C49434B
 }
 
 fun main() {
@@ -57,7 +52,7 @@ fun main() {
         while(dial.rotations.isNotEmpty()){
             dial.rotate()
         }
-        return dial.analyze()
+        return dial.password
     }
 
     fun part2(): Int {
@@ -68,7 +63,7 @@ fun main() {
         while(dial.rotations.isNotEmpty()){
             dial.rotateEach()
         }
-        return dial.analyze_0x434C49434B()
+        return dial.securePassword
     }
 
 
